@@ -36,7 +36,6 @@ class CurrencyConversionViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> {
-                        Log.d("hhh", result.data.toString())
                         _state.value = CurrencyConversionState(isLoading = false)
                         _state.value = CurrencyConversionState(value = result.data)
 
