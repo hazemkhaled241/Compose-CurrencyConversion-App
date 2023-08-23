@@ -6,5 +6,5 @@ interface CurrencyRepository {
     suspend fun convertCurrency(
         base: String,
         target: String
-    ): Resource<Int, String>
+    ): Resource<Double, String>
 }

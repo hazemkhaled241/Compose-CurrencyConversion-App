@@ -10,7 +10,7 @@ class ConvertCurrencyUseCase @Inject constructor(
     suspend operator fun invoke(
         base: String,
         target: String
-    ): Resource<Int, String> {
+    ): Resource<Double, String> {
         return currencyRepository.convertCurrency(base = base, target = target)
     }
 }

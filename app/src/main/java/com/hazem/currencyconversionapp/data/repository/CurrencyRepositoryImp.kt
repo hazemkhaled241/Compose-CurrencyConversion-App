@@ -13,9 +13,9 @@ class CurrencyRepositoryImp @Inject constructor(
     override suspend fun convertCurrency(
         base: String,
         target: String
-    ): Resource<Int, String> {
+    ): Resource<Double, String> {
         return try {
-            Resource.Success(api.convertCurrency(base = base, target = target).conversionRate.toInt())
+            Resource.Success(api.convertCurrency(base = base, target = target).conversionRate.toDouble())
         } catch (e: HttpException) {
             Resource.Error(e.localizedMessage ?: "An unexpected error occurred")
         } catch (e: IOException) {
