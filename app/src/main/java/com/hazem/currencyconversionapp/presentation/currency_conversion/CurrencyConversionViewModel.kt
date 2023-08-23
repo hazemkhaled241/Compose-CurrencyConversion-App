@@ -31,11 +31,13 @@ class CurrencyConversionViewModel @Inject constructor(
             currencyUseCase(base = base, target = target).let { result ->
                 when (result) {
                     is Resource.Error -> {
+                        _state.value = CurrencyConversionState(isLoading = false)
                         _state.value = CurrencyConversionState(error = result.message)
                     }
 
                     is Resource.Success -> {
                         Log.d("hhh", result.data.toString())
+                        _state.value = CurrencyConversionState(isLoading = false)
                         _state.value = CurrencyConversionState(value = result.data)
 
                     }
