@@ -4,8 +4,8 @@ data class CurrencyConversionState(
     val error: String = "",
     val value:Double=0.0,
     val isLoading:Boolean=false,
-    var paintrBase : String = "",
+    var painterBase : String = "",
     var base : String = "",
-    var paintrTarget : String = "",
+    var painterTarget : String = "",
     var target: String = "",
 )
