@@ -2,9 +2,11 @@ package com.hazem.currencyconversionapp.data.remote
 
 import com.hazem.currencyconversionapp.data.remote.dto.ConversionResponseDto
 import com.hazem.currencyconversionapp.data.remote.dto.ComparisonResponseDto
-import com.hazem.currencyconversionapp.domain.model.Currency
+import com.hazem.currencyconversionapp.data.remote.dto.FavoritesDto
+import com.hazem.currencyconversionapp.domain.model.remote.Currency
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface CurrencyApi {
     @GET("pair/{base}/{target}")
@@ -21,5 +23,11 @@ interface CurrencyApi {
     ): ComparisonResponseDto
 
     @GET("images")
-    suspend fun getCurrencies():List<Currency>
+    suspend fun getCurrencies(): List<Currency>
+
+    @GET("rates")
+    suspend fun getRatesOfFavorites(
+        @Query("base") base: String,
+        @Query("targets") targets: List<String>,
+    ): FavoritesDto
 }
