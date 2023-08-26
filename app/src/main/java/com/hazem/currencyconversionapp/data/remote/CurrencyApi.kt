@@ -29,7 +29,7 @@ interface CurrencyApi {
 
     @GET("rates")
     suspend fun getRatesOfFavorites(
-        @Query("base") base: String,
+        @Query("base_code") base: String,
         @Query("targets") targets: List<String>,
     ): FavoritesDto
 }
