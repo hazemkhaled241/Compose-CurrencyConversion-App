@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CurrenciesViewModel @Inject constructor(
     private val getCurrenciesUseCase: GetCurrenciesUseCase
-) :ViewModel(){
+) : ViewModel() {
     private val _state = mutableStateOf(CurrencyState())
     val state: State<CurrencyState> = _state
 
@@ -35,7 +35,7 @@ class CurrenciesViewModel @Inject constructor(
                     is Resource.Success -> {
                         Log.d("hhh", result.data.toString())
                         _state.value = CurrencyState(isLoading = false)
-                        _state.value = CurrencyState(value = result.data)
+                        _state.value = CurrencyState(listCurrency = result.data)
 
                     }
                 }
@@ -43,5 +43,4 @@ class CurrenciesViewModel @Inject constructor(
         }
 
     }
-
 }

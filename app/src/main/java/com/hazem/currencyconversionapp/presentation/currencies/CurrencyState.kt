@@ -4,6 +4,9 @@ import com.hazem.currencyconversionapp.domain.model.remote.Currency
 
 data class CurrencyState(
     val error: String = "",
-    val value: List<Currency> = emptyList(),
-    val isLoading: Boolean = false
+    val listCurrency: List<Currency> = emptyList(),
+    val isLoading: Boolean = false,
+   var ischeckBoxSelected : Boolean = false
 )
+
+
