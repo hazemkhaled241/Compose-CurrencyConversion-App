@@ -2,9 +2,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -94,6 +93,11 @@ dependencies {
 
     //coil image
     implementation("io.coil-kt:coil-compose:2.4.0")
+    //constraintlayout
+
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha12")
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha12")
+
 
     //room
     val roomVersion = "2.5.2"
