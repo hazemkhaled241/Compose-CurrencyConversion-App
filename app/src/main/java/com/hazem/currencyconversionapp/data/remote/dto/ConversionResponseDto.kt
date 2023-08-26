@@ -7,6 +7,10 @@ data class ConversionResponseDto(
     val baseCode: String,
     @SerializedName("target_code")
     val targetCode: String,
+    @SerializedName("amount")
+    val amount: String,
     @SerializedName("conversion_rate")
-    val conversionRate: String
+    val conversionRate: String,
+    @SerializedName("conversion_value")
+    val conversionValue: String
 )

@@ -9,8 +9,9 @@ class ConvertCurrencyUseCase @Inject constructor(
 ) {
     suspend operator fun invoke(
         base: String,
-        target: String
+        target: String,
+        amount: String
     ): Resource<Double, String> {
-        return currencyRepository.convertCurrency(base = base, target = target)
+        return currencyRepository.convertCurrency(base = base, target = target, amount = amount)
     }
 }

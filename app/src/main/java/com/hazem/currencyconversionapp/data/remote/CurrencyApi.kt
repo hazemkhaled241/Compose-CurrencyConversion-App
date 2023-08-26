@@ -9,17 +9,19 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface CurrencyApi {
-    @GET("pair/{base}/{target}")
+    @GET("pair/{base}/{target}/{amount}")
     suspend fun convertCurrency(
         @Path("base") base: String,
-        @Path("target") target: String
+        @Path("target") target: String,
+        @Path("amount") amount: String
     ): ConversionResponseDto
 
-    @GET("compare/{base}/{target1}/{target2}")
+    @GET("compare/{base}/{first_target}/{second_target}/{amount}")
     suspend fun compare(
         @Path("base") base: String,
-        @Path("target1") firstTarget: String,
-        @Path("target2") secondTarget: String
+        @Path("first_target") firstTarget: String,
+        @Path("second_target") secondTarget: String,
+        @Path("amount") amount: String
     ): ComparisonResponseDto
 
     @GET("images")

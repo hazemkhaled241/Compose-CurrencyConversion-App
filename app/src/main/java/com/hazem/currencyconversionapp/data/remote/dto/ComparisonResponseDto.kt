@@ -9,8 +9,8 @@ data class ComparisonResponseDto(
     val firstTargetCode: String,
     @SerializedName("second_target_code")
     val secondTargetCode: String,
-    @SerializedName("first_Conversion_rate")
-    val firstConversionRate: String,
-    @SerializedName("second_Conversion_rate")
-    val secondConversionRate: String
+    @SerializedName("first_Conversion_value")
+    val firstConversionValue: String,
+    @SerializedName("second_Conversion_value")
+    val secondConversionValue: String
 )

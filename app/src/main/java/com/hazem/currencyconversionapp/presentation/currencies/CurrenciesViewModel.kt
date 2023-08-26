@@ -35,7 +35,7 @@ class CurrenciesViewModel @Inject constructor(
                     is Resource.Success -> {
                         Log.d("hhh", result.data.toString())
                         _state.value = CurrencyState(isLoading = false)
-                        _state.value = CurrencyState(listCurrency = result.data)
+                        _state.value = CurrencyState(currencyList = result.data)
 
                     }
                 }
