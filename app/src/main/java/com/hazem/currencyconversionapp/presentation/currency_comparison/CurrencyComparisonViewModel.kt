@@ -15,11 +15,12 @@ import javax.inject.Inject
 class CurrencyComparisonViewModel @Inject constructor(
     private val currencyComparisonUseCase: CurrencyComparisonUseCase
 ) : ViewModel() {
+
     private val _state = mutableStateOf(CurrencyComparisonState())
     val state: State<CurrencyComparisonState> = _state
 
     init {
-        compare("USD", "QAR","EUR")
+        compare("USD", "QAR", "EUR")
     }
 
     private fun compare(
@@ -41,7 +42,10 @@ class CurrencyComparisonViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> {
-                        Log.d("hhh", result.data.firstConversionRate.toString()  +"  "+result.data.secondConversionRate.toString())
+                        Log.d(
+                            "hhh",
+                            result.data.firstConversionRate.toString() + "  " + result.data.secondConversionRate.toString()
+                        )
                         _state.value = CurrencyComparisonState(isLoading = false)
                         _state.value = CurrencyComparisonState(value = result.data)
 
@@ -50,5 +54,9 @@ class CurrencyComparisonViewModel @Inject constructor(
             }
         }
 
+    }
+
+    fun setAmountState(amount: String) {
+        _state.value = CurrencyComparisonState(amountState = amount.toDouble())
     }
 }
