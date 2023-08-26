@@ -1,11 +1,10 @@
 package com.hazem.currencyconversionapp.presentation.currency_conversion
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hazem.currencyconversionapp.domain.use_case.ConvertCurrencyUseCase
+import com.hazem.currencyconversionapp.domain.use_case.remote.ConvertCurrencyUseCase
 import com.hazem.currencyconversionapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

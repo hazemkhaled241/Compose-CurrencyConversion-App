@@ -5,7 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hazem.currencyconversionapp.domain.use_case.GetCurrenciesUseCase
+import com.hazem.currencyconversionapp.domain.use_case.remote.GetCurrenciesUseCase
 import com.hazem.currencyconversionapp.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
