@@ -20,20 +20,22 @@ class CurrencyComparisonViewModel @Inject constructor(
     val state: State<CurrencyComparisonState> = _state
 
     init {
-        compare("USD", "QAR", "EUR")
+        compare("USD", "QAR", "EUR","20")
     }
 
     private fun compare(
         base: String,
         firstTarget: String,
-        secondTarget: String
+        secondTarget: String,
+        amount: String
     ) {
         viewModelScope.launch {
             _state.value = CurrencyComparisonState(isLoading = true)
             currencyComparisonUseCase(
                 base = base,
                 firstTarget = firstTarget,
-                secondTarget = secondTarget
+                secondTarget = secondTarget,
+                amount = amount
             ).let { result ->
                 when (result) {
                     is Resource.Error -> {
@@ -44,7 +46,7 @@ class CurrencyComparisonViewModel @Inject constructor(
                     is Resource.Success -> {
                         Log.d(
                             "hhh",
-                            result.data.firstConversionRate.toString() + "  " + result.data.secondConversionRate.toString()
+                            result.data.firstConversionValue.toString() + "  " + result.data.secondConversionValue.toString()
                         )
                         _state.value = CurrencyComparisonState(isLoading = false)
                         _state.value = CurrencyComparisonState(value = result.data)

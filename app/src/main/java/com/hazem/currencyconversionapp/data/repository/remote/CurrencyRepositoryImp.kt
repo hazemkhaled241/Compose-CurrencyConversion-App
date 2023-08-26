@@ -15,14 +15,16 @@ class CurrencyRepositoryImp @Inject constructor(
 ) : CurrencyRepository {
     override suspend fun convertCurrency(
         base: String,
-        target: String
+        target: String,
+        amount: String
     ): Resource<Double, String> {
         return try {
             Resource.Success(
                 api.convertCurrency(
                     base = base,
-                    target = target
-                ).conversionRate.toDouble()
+                    target = target,
+                    amount = amount
+                ).conversionValue.toDouble()
             )
         } catch (e: HttpException) {
             Resource.Error(e.localizedMessage ?: "An unexpected error occurred")
@@ -34,18 +36,20 @@ class CurrencyRepositoryImp @Inject constructor(
     override suspend fun convertCurrencyWithTwoTarget(
         base: String,
         firstTarget: String,
-        secondTarget: String
+        secondTarget: String,
+        amount: String
     ): Resource<ComparisonResponse, String> {
         return try {
             val response = api.compare(
                 base = base,
                 firstTarget = firstTarget,
-                secondTarget = secondTarget
+                secondTarget = secondTarget,
+                amount = amount
             )
             Resource.Success(
                 ComparisonResponse(
-                    firstConversionRate = response.firstConversionRate.toDouble(),
-                    secondConversionRate = response.secondConversionRate.toDouble()
+                    firstConversionValue = response.firstConversionValue.toDouble(),
+                    secondConversionValue = response.secondConversionValue.toDouble()
                 )
             )
         } catch (e: HttpException) {

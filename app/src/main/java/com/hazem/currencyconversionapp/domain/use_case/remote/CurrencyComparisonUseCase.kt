@@ -11,12 +11,14 @@ class CurrencyComparisonUseCase @Inject constructor(
     suspend operator fun invoke(
         base: String,
         firstTarget: String,
-        secondTarget: String
+        secondTarget: String,
+        amount: String
     ): Resource<ComparisonResponse, String> {
         return currencyRepository.convertCurrencyWithTwoTarget(
             base = base,
             firstTarget = firstTarget,
-            secondTarget = secondTarget
+            secondTarget = secondTarget,
+            amount = amount
         )
     }
 }

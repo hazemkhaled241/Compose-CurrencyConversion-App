@@ -8,13 +8,15 @@ import com.hazem.currencyconversionapp.utils.Resource
 interface CurrencyRepository {
     suspend fun convertCurrency(
         base: String,
-        target: String
+        target: String,
+        amount: String
     ): Resource<Double, String>
 
     suspend fun convertCurrencyWithTwoTarget(
         base: String,
         firstTarget: String,
-        secondTarget: String
+        secondTarget: String,
+        amount: String
     ): Resource<ComparisonResponse, String>
 
     suspend fun getCurrencies(): Resource<List<Currency>, String>
