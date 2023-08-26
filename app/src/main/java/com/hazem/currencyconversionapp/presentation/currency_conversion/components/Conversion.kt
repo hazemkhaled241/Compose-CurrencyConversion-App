@@ -94,7 +94,7 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
             )
             CurrencyMenu(
                 currency = Currencies(currencyConversionViewModel.state.value.base ,
-                    currencyConversionViewModel.state.value.paintrBase),
+                    currencyConversionViewModel.state.value.painterBase),
                 onItemClicked = { base ->
                     currencyConversionViewModel.state.value.base = base
                 }, modifier = Modifier
@@ -136,7 +136,7 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
         Row(horizontalArrangement = Arrangement.Start) {
             CurrencyMenu(
                 currency = Currencies(currencyConversionViewModel.state.value.target ,
-                    currencyConversionViewModel.state.value.paintrTarget),
+                    currencyConversionViewModel.state.value.painterTarget),
                 onItemClicked = { target ->
                     currencyConversionViewModel.state.value.target = target
                 },
