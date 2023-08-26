@@ -1,6 +1,7 @@
 package com.hazem.currencyconversionapp.presentation.currency_conversion
 
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,8 +18,11 @@ class CurrencyConversionViewModel @Inject constructor(
     private val _state = mutableStateOf(CurrencyConversionState())
     val state: State<CurrencyConversionState> = _state
 
+    private val _amountState = mutableDoubleStateOf(0.0)
+    var amountState: State<Double> = _amountState
+
     init {
-        convertCurrency("USD","EGP")
+        convertCurrency("USD", "EGP")
     }
 
     private fun convertCurrency(
@@ -43,5 +47,9 @@ class CurrencyConversionViewModel @Inject constructor(
             }
         }
 
+    }
+
+    fun setAmountState(amount: String) {
+        _amountState.doubleValue = amount.toDouble()
     }
 }
