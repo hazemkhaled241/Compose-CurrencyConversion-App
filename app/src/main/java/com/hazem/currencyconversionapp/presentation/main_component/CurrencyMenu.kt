@@ -99,10 +99,10 @@ fun CurrencyMenu(
             onDismissRequest = { isMenuExpanded = false },
             modifier = Modifier.width(with(LocalDensity.current) { textFieldSize.width.toDp() })
         ) {
-            repeat(currenciesViewModel.state.value.listCurrency.size) {
+            repeat(currenciesViewModel.state.value.currencyList.size) {
                 DropdownMenuItem(text = {
                     val painter =
-                        rememberAsyncImagePainter(model = currenciesViewModel.state.value.listCurrency[it].flag)
+                        rememberAsyncImagePainter(model = currenciesViewModel.state.value.currencyList[it].flag)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
                             painter = painter, contentDescription = "currency flag",
@@ -113,19 +113,19 @@ fun CurrencyMenu(
                                     shape = CircleShape
                                 ),
                         )
-                        Text(text = currenciesViewModel.state.value.listCurrency[it].currency)
+                        Text(text = currenciesViewModel.state.value.currencyList[it].currency)
 
                     }
                 },
                     onClick = {
 
                         currency.currency =
-                            currenciesViewModel.state.value.listCurrency[it].currency
+                            currenciesViewModel.state.value.currencyList[it].currency
                         currency.flag =
-                            currenciesViewModel.state.value.listCurrency[it].flag
+                            currenciesViewModel.state.value.currencyList[it].flag
 
 
-                        onItemClicked(currenciesViewModel.state.value.listCurrency[it].currency)
+                        onItemClicked(currenciesViewModel.state.value.currencyList[it].currency)
                         isMenuExpanded = false
 
                     })
