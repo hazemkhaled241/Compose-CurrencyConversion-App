@@ -94,4 +94,12 @@ dependencies {
 
     //coil image
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //room
+    val roomVersion = "2.5.2"
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 }

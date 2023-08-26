@@ -1,9 +1,10 @@
-package com.hazem.currencyconversionapp.data.repository
+package com.hazem.currencyconversionapp.data.repository.remote
 
 import com.hazem.currencyconversionapp.data.remote.CurrencyApi
-import com.hazem.currencyconversionapp.domain.model.ComparisonResponse
-import com.hazem.currencyconversionapp.domain.model.Currency
-import com.hazem.currencyconversionapp.domain.repository.CurrencyRepository
+import com.hazem.currencyconversionapp.domain.model.remote.ComparisonResponse
+import com.hazem.currencyconversionapp.domain.model.remote.Currency
+import com.hazem.currencyconversionapp.domain.model.remote.CurrencyDetails
+import com.hazem.currencyconversionapp.domain.repository.remote.CurrencyRepository
 import com.hazem.currencyconversionapp.utils.Resource
 import retrofit2.HttpException
 import java.io.IOException
@@ -63,4 +64,18 @@ class CurrencyRepositoryImp @Inject constructor(
             Resource.Error("Couldn't reach server. Check your internet connection.")
         }
     }
+
+    override suspend fun getRatesOfFavorites(
+        base: String,
+        favorites: List<String>
+    ): Resource<List<CurrencyDetails>, String> {
+        return try {
+            Resource.Success(api.getRatesOfFavorites(base = base, targets = favorites).targets)
+        } catch (e: HttpException) {
+            Resource.Error(e.localizedMessage ?: "An unexpected error occurred")
+        } catch (e: IOException) {
+            Resource.Error("Couldn't reach server. Check your internet connection.")
+        }
+    }
+
 }
