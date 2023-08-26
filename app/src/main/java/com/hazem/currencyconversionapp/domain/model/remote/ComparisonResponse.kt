@@ -1,4 +1,4 @@
-package com.hazem.currencyconversionapp.domain.model
+package com.hazem.currencyconversionapp.domain.model.remote
 
 
 data class ComparisonResponse(
