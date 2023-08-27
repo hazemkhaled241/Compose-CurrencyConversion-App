@@ -2,10 +2,10 @@ package com.hazem.currencyconversionapp.presentation.currency_conversion
 
 import android.util.Log
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hazem.currencyconversionapp.domain.use_case.local.GetAllFavoriteCurrenciesUseCase
 import com.hazem.currencyconversionapp.domain.use_case.remote.ConvertCurrencyUseCase
 import com.hazem.currencyconversionapp.domain.use_case.remote.GetAllFavoritesUseCase
 import com.hazem.currencyconversionapp.utils.Resource
@@ -16,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CurrencyConversionViewModel @Inject constructor(
     private val currencyUseCase: ConvertCurrencyUseCase,
-    private val getAllFavoritesUseCase: GetAllFavoritesUseCase
+    private val getAllFavoritesUseCase: GetAllFavoritesUseCase,
+    private val getAllFavoriteCurrenciesUseCase: GetAllFavoriteCurrenciesUseCase
 ) : ViewModel() {
     private val _state = mutableStateOf(CurrencyConversionState())
     val state: State<CurrencyConversionState> = _state
@@ -24,15 +25,15 @@ class CurrencyConversionViewModel @Inject constructor(
     private val _currencyDetailsState = mutableStateOf(FavoritesDetailsState())
     val currencyDetailsState: State<FavoritesDetailsState> = _currencyDetailsState
 
-    private val _amountState = mutableDoubleStateOf(0.0)
-    var amountState: State<Double> = _amountState
+
+    private val _getAllFavoriteCurrencyState = mutableStateOf(GetAllFavoriteCurrencyState())
+    val getAllFavoriteCurrencyState: State<GetAllFavoriteCurrencyState> = _getAllFavoriteCurrencyState
 
     init {
-      //  convertCurrency("USD", "EUR", "10")
-        getFavoritesDetails("USD", listOf("EUR","QAR"))
+      getAllCurrencyFromFavorite()
     }
 
-    private fun convertCurrency(
+     fun convertCurrency(
         base: String,
         target: String,
         amount: String
@@ -59,7 +60,7 @@ class CurrencyConversionViewModel @Inject constructor(
 
     }
 
-    private fun getFavoritesDetails(
+    fun getFavoritesDetails(
         base: String,
         favorites: List<String>,
     ) {
@@ -86,6 +87,26 @@ class CurrencyConversionViewModel @Inject constructor(
     }
 
     fun setAmountState(amount: String) {
-        _amountState.doubleValue = amount.toDouble()
+       _state.value = CurrencyConversionState(amount = amount)
+    }
+    fun getAllCurrencyFromFavorite() {
+        viewModelScope.launch {
+            _getAllFavoriteCurrencyState.value = GetAllFavoriteCurrencyState(isLoading = true)
+            getAllFavoriteCurrenciesUseCase().let { result ->
+                when (result) {
+                    is Resource.Error -> {
+                        _getAllFavoriteCurrencyState.value = GetAllFavoriteCurrencyState(isLoading = false)
+                        _getAllFavoriteCurrencyState.value = GetAllFavoriteCurrencyState(error = result.message)
+                    }
+
+                    is Resource.Success -> {
+                        Log.d("delete", result.data.toString())
+                        _getAllFavoriteCurrencyState.value = GetAllFavoriteCurrencyState(isLoading = false)
+                        _getAllFavoriteCurrencyState.value = GetAllFavoriteCurrencyState(allCurrency = result.data)
+                    }
+                }
+
+            }
+        }
     }
 }
