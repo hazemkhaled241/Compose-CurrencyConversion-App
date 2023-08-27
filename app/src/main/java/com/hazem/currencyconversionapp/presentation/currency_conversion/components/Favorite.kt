@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.hazem.currencyconversionapp.data.local.entities.CurrencyEntity
 import com.hazem.currencyconversionapp.presentation.currencies.CurrenciesViewModel
 import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyConversionViewModel
@@ -41,7 +42,7 @@ import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
 fun Favorite(
     currenciesViewModel: CurrenciesViewModel = hiltViewModel(),
     currencyConversionViewModel: CurrencyConversionViewModel = hiltViewModel(),
-    /*  navController: NavController*/
+     navController: NavController
 ) {
     currencyConversionViewModel.onEvent(CurrencyEvents.GetAllFavoriteCurrencies)
     //currencyConversionViewModel.getAllCurrencyFromFavorite()
@@ -69,7 +70,7 @@ if(!currencyConversionViewModel.getAllFavoriteCurrencyState.value.isLoading) {
             )
         }
         IconButton(
-            onClick = { /*navController.navigate("main") */ },
+            onClick = { navController.navigate("main")  },
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(15.dp)

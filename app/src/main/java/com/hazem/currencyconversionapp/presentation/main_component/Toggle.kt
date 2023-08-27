@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -22,10 +22,10 @@ import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
 
 @Composable
 fun ConvertAndCompareToggle(
-   /* currencyConversionViewModel: CurrencyConversionViewModel = hiltViewModel(),
-    currencyComparisonViewModel: CurrencyComparisonViewModel = hiltViewModel()*/
-   onConvertClicked :()->Unit,
-   onCompareClicked :()->Unit
+    /* currencyConversionViewModel: CurrencyConversionViewModel = hiltViewModel(),
+     currencyComparisonViewModel: CurrencyComparisonViewModel = hiltViewModel()*/
+    onConvertClicked: () -> Unit,
+    onCompareClicked: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(
@@ -35,34 +35,39 @@ fun ConvertAndCompareToggle(
         modifier = Modifier
             .background(Color.White, shape = RoundedCornerShape(20.dp))
             .width(274.dp)
-            .height(50.dp)
-            .border(width = 2.dp, shape = RoundedCornerShape(20.dp), color = DarkWhite)
+            .border(width = 2.dp, shape = RoundedCornerShape(25.dp), color = DarkWhite)
     ) {
 
 
-        Button(onClick = {
-           onConvertClicked()
-        }, colors = ButtonDefaults.buttonColors(Color.White)) {
+        Button(
+            onClick = {
+                onConvertClicked()
+            }, colors = ButtonDefaults.buttonColors(Color.White),
+            modifier = Modifier.padding(5.dp)
+        ) {
             Text(
                 text = "Convert",
                 style = TextStyle(
-                    fontSize = 13.8.sp,
+                    fontSize = 14.sp,
                     //  fontFamily = FontFamily(Font(R.font.poppins)),
                     fontWeight = FontWeight(400),
-                    color = Color(0xFF141414),
+                    color = Color.Black,
                 )
             )
         }
-        Button(onClick = {
-            onCompareClicked()
-        }, colors = ButtonDefaults.buttonColors(Color.White)) {
+        Button(
+            onClick = {
+                onCompareClicked()
+            }, colors = ButtonDefaults.buttonColors(Color.White),
+            modifier = Modifier.padding(5.dp)
+        ) {
             Text(
                 text = "Compare",
                 style = TextStyle(
-                    fontSize = 13.8.sp,
+                    fontSize = 14.sp,
                     //  fontFamily = FontFamily(Font(R.font.poppins)),
                     fontWeight = FontWeight(400),
-                    color = Color(0xFF141414),
+                    color = Color.Black,
                 )
             )
         }

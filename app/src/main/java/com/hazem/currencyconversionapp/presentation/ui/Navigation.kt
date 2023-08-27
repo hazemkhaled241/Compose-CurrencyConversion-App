@@ -12,10 +12,10 @@ fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "main") {
         composable("main") {
-            MainScreen()
+            MainScreen(navController = navController)
         }
         composable("favorite") {
-            Favorite()
+           Favorite(navController = navController)
         }
     }
 }
