@@ -1,4 +1,4 @@
-package com.hazem.currencyconversionapp.presentation.currency_conversion.components
+package com.hazem.currencyconversionapp.presentation.main_component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -23,17 +23,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 
-
 @Composable
-fun FavoriteItem(
+fun PortfolioItem(
     imageUrl: String,
     currency: String,
-    selected: Boolean,
-    onChecked: (Boolean) -> Unit,
+    exchangeRate: String
 ) {
     Box(
         modifier = Modifier
@@ -46,12 +45,10 @@ fun FavoriteItem(
             Image(
                 painter = painter, contentDescription = "currency flag",
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .padding(bottom = 15.dp, start = 5.dp)
+                modifier = Modifier.padding(bottom = 15.dp , start = 5.dp)
                     .clip(CircleShape)
                     .scale(1.5f)
                     .size(50.dp)
-                //  .background(shape = CircleShape, color = Color.White)
             )
             Spacer(modifier = Modifier.width(15.dp))
             Column {
@@ -60,8 +57,8 @@ fun FavoriteItem(
                 Text(
                     text = "CURRENCY",
                     style = TextStyle(
-                        fontSize = 11.56.sp,
-                        lineHeight = 19.27.sp,
+                        fontSize = 12.sp,
+                        lineHeight = 20.sp,
                         //fontFamily = FontFamily(Font(R.font.poppins)),
                         fontWeight = FontWeight(400),
                         color = Color.LightGray,
@@ -69,10 +66,17 @@ fun FavoriteItem(
                 )
             }
         }
-        CircleCheckBox(
-            selected = selected,
-            modifier = Modifier.align(Alignment.CenterEnd),
-            onChecked = { onChecked(!selected) }
+
+        Text(
+            text = exchangeRate,
+            style = TextStyle(
+                fontSize = 18.sp,
+                lineHeight = 24.sp,
+                //  fontFamily = FontFamily(Font(R.font.poppins)),
+                fontWeight = FontWeight(500),
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+            ), modifier = Modifier.align(Alignment.CenterEnd)
         )
         Divider(
             modifier = Modifier

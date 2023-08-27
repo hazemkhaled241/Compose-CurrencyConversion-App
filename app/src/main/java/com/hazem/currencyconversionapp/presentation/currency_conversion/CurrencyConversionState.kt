@@ -8,4 +8,5 @@ data class CurrencyConversionState(
     var base : String = "",
     var painterTarget : String = "",
     var target: String = "",
+    var amount : String =""
 )

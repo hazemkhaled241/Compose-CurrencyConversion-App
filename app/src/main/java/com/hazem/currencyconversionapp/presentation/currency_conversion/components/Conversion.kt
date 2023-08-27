@@ -75,7 +75,7 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
 
         Row(horizontalArrangement = Arrangement.Start) {
             OutlinedTextField(
-                value = currencyConversionViewModel.amountState.value.toString(), onValueChange = {
+                value = currencyConversionViewModel.state.value.amount, onValueChange = {
                     currencyConversionViewModel.setAmountState(it)
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -150,7 +150,8 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
                     )
             )
             OutlinedTextField(
-                value = "2", onValueChange = {},
+                value = currencyConversionViewModel.state.value.value.toString(),
+                onValueChange = {},
                 readOnly = true,
 
                 modifier = Modifier
@@ -169,7 +170,11 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
         }
         Spacer(modifier = Modifier.height(15.dp))
         Button(
-            onClick = {},
+            onClick = {
+                      currencyConversionViewModel.convertCurrency(currencyConversionViewModel.state.value.base,
+                          currencyConversionViewModel.state.value.base ,
+                          currencyConversionViewModel.state.value.amount)
+            },
             colors = ButtonDefaults.buttonColors(Color.Black),
             modifier = Modifier
                 .fillMaxWidth()
