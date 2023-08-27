@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,7 +33,7 @@ fun FavoriteItem(
     imageUrl: String,
     currency: String,
     selected: Boolean,
-    onChecked: () -> Unit
+    onChecked: (Boolean) -> Unit,
 ) {
     Box(
         modifier = Modifier
@@ -46,6 +47,7 @@ fun FavoriteItem(
                 painter = painter, contentDescription = "currency flag",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
+                    .padding(bottom = 15.dp, start = 5.dp)
                     .clip(CircleShape)
                     .scale(1.5f)
                     .size(50.dp)
@@ -69,9 +71,12 @@ fun FavoriteItem(
         }
         CircleCheckBox(
             selected = selected,
-            modifier = Modifier.align(Alignment.CenterEnd)
-        ) {
-            onChecked()
-        }
+            modifier = Modifier.align(Alignment.CenterEnd),
+            onChecked = { onChecked(!selected) }
+        )
+        Divider(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+        )
     }
 }

@@ -13,10 +13,15 @@ import androidx.compose.ui.Modifier
 fun CircleCheckBox(
     selected: Boolean,
     modifier: Modifier,
-    onChecked: () -> Unit
+    onChecked: (Boolean) -> Unit,
 ) {
     val icon = if (selected) Icons.Filled.CheckCircle else Icons.Outlined.Circle
-    IconButton(onClick = { onChecked() }, modifier = modifier) {
+    IconButton(
+        onClick = {
+            onChecked(!selected)
+        },
+        modifier = modifier,
+    ) {
         Icon(imageVector = icon, contentDescription = "Check icon")
     }
 }
