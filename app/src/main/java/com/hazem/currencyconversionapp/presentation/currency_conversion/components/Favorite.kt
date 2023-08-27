@@ -32,6 +32,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.hazem.currencyconversionapp.data.local.entities.CurrencyEntity
 import com.hazem.currencyconversionapp.presentation.currencies.CurrenciesViewModel
 import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyConversionViewModel
+import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyEvents
+import com.hazem.currencyconversionapp.presentation.currency_conversion.ListItem
 import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
 
 
@@ -41,17 +43,36 @@ fun Favorite(
     currencyConversionViewModel: CurrencyConversionViewModel = hiltViewModel(),
     /*  navController: NavController*/
 ) {
-    currencyConversionViewModel.getAllCurrencyFromFavorite()
+    currencyConversionViewModel.onEvent(CurrencyEvents.GetAllFavoriteCurrencies)
+    //currencyConversionViewModel.getAllCurrencyFromFavorite()
     val allCurrencies = currenciesViewModel.state.value.currencyList
-    var isChecked by remember {
-        mutableStateOf(false)
-    }
+    val favorites = currencyConversionViewModel.getAllFavoriteCurrencyState.value.allCurrency
+    Log.d("test", favorites.size.toString())
+
+
+if(!currencyConversionViewModel.getAllFavoriteCurrencyState.value.isLoading) {
     Box(modifier = Modifier.fillMaxSize()) {
+        var items by remember {
+            mutableStateOf(
+                (0..11).map { isSelectedItem ->
+
+                    if (favorites.map { it.id }.contains(isSelectedItem)) {
+                        ListItem(
+                            isSelected = true
+                        )
+                    } else {
+                        ListItem(
+                            isSelected = false
+                        )
+                    }
+                }
+            )
+        }
         IconButton(
             onClick = { /*navController.navigate("main") */ },
             modifier = Modifier
-                .padding(top = 30.dp, end = 15.dp)
                 .align(Alignment.TopEnd)
+                .padding(15.dp)
         ) {
             Icon(
                 imageVector = Icons.Filled.Close, contentDescription = "close Icon",
@@ -82,34 +103,44 @@ fun Favorite(
                     FavoriteItem(
                         imageUrl = item.flag,
                         currency = item.currency,
-                        selected = currencyConversionViewModel.getAllFavoriteCurrencyState.value.allCurrency
-                            .map { it.currency }
-                            .contains(item.currency),
+                        selected = items[index].isSelected,
                         onChecked = {
-                            isChecked = isChecked.not()
-                            if (isChecked) {
-                                currenciesViewModel
-                                    .addCurrencyToFavorite(
-                                        CurrencyEntity(id = index, currency = item.currency)
-
+                            items = items.mapIndexed { j, item ->
+                                if (index == j) {
+                                    item.copy(isSelected = !item.isSelected)
+                                } else item
+                            }
+                            if (items[index].isSelected) {
+                                currencyConversionViewModel
+                                    .onEvent(
+                                        CurrencyEvents.AddToFavorite(
+                                            CurrencyEntity(
+                                                id = index,
+                                                currency = item.currency
+                                            )
+                                        )
                                     )
-                                Log.d("dddff", "added ${item.currency} ")
+                            } else {
+
+                                currencyConversionViewModel
+                                    .onEvent(
+                                        CurrencyEvents.DeleteFromFavorites(
+                                            CurrencyEntity(
+                                                id = index,
+                                                currency = item.currency
+                                            )
+                                        )
+                                    )
 
                             }
-                            else{
-                            currenciesViewModel
-                                .deleteCurrencyToFavorite(
-                                    CurrencyEntity(id = index, currency = item.currency)
-                                )
-                            Log.d("dddff", "delet ${item.currency} ")
-                        }}
+                        }
                     )
                 }
 
             }
         }
     }
-
+}
 }
 
 
