@@ -1,5 +1,6 @@
 package com.hazem.currencyconversionapp.presentation.currency_conversion.components
 
+import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Circle
@@ -15,10 +16,11 @@ fun CircleCheckBox(
     modifier: Modifier,
     onChecked: (Boolean) -> Unit,
 ) {
+    Log.d("selected", selected.toString())
     val icon = if (selected) Icons.Filled.CheckCircle else Icons.Outlined.Circle
     IconButton(
         onClick = {
-            onChecked(!selected)
+            onChecked(selected)
         },
         modifier = modifier,
     ) {

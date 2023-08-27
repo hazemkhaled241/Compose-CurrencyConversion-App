@@ -84,9 +84,11 @@ fun Portfolio(currencyConversionViewModel: CurrencyConversionViewModel = hiltVie
         LazyColumn {
             currencyConversionViewModel.getAllCurrencyFromFavorite()
             val favListCurrency = mutableListOf<String>()
+
             currencyConversionViewModel.getAllFavoriteCurrencyState.value.allCurrency.forEach {
                 favListCurrency.add(it.currency)
             }
+
             currencyConversionViewModel.getFavoritesDetails(
                 currencyConversionViewModel.state.value.base,
                 favListCurrency

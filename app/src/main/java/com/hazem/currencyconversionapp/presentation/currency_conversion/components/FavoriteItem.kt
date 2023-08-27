@@ -72,7 +72,7 @@ fun FavoriteItem(
         CircleCheckBox(
             selected = selected,
             modifier = Modifier.align(Alignment.CenterEnd),
-            onChecked = { onChecked(!selected) }
+            onChecked = { onChecked(selected) }
         )
         Divider(
             modifier = Modifier
