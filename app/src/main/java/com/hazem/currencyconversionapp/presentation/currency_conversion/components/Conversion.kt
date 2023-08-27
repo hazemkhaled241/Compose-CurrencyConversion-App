@@ -9,14 +9,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -30,9 +28,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.hazem.currencyconversionapp.presentation.main_component.CurrencyMenu
 import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyConversionViewModel
 import com.hazem.currencyconversionapp.presentation.main_component.Currencies
+import com.hazem.currencyconversionapp.presentation.main_component.CurrencyMenu
 import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,8 +40,6 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
     Column(
 
         modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .wrapContentHeight()
             .fillMaxWidth()
             .padding(start = 30.dp, end = 30.dp, top = 50.dp)
     ) {
@@ -93,8 +89,10 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
                     )
             )
             CurrencyMenu(
-                currency = Currencies(currencyConversionViewModel.state.value.base ,
-                    currencyConversionViewModel.state.value.painterBase),
+                currency = Currencies(
+                    currencyConversionViewModel.state.value.base,
+                    currencyConversionViewModel.state.value.painterBase
+                ),
                 onItemClicked = { base ->
                     currencyConversionViewModel.state.value.base = base
                 }, modifier = Modifier
@@ -135,8 +133,10 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
         Spacer(modifier = Modifier.height(15.dp))
         Row(horizontalArrangement = Arrangement.Start) {
             CurrencyMenu(
-                currency = Currencies(currencyConversionViewModel.state.value.target ,
-                    currencyConversionViewModel.state.value.painterTarget),
+                currency = Currencies(
+                    currencyConversionViewModel.state.value.target,
+                    currencyConversionViewModel.state.value.painterTarget
+                ),
                 onItemClicked = { target ->
                     currencyConversionViewModel.state.value.target = target
                 },
@@ -171,13 +171,16 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
         Spacer(modifier = Modifier.height(15.dp))
         Button(
             onClick = {
-                      currencyConversionViewModel.convertCurrency(currencyConversionViewModel.state.value.base,
-                          currencyConversionViewModel.state.value.base ,
-                          currencyConversionViewModel.state.value.amount)
+                currencyConversionViewModel.convertCurrency(
+                    currencyConversionViewModel.state.value.base,
+                    currencyConversionViewModel.state.value.base,
+                    currencyConversionViewModel.state.value.amount
+                )
             },
             colors = ButtonDefaults.buttonColors(Color.Black),
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(bottom = 80.dp)
                 .clip(CircleShape)
         ) {
             Text(
@@ -189,10 +192,8 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
                     color = Color.White,
                 )
             )
-
         }
-
-
+        Divider()
     }
 
 }
