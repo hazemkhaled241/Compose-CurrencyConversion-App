@@ -19,11 +19,9 @@ class CurrencyComparisonViewModel @Inject constructor(
     private val _state = mutableStateOf(CurrencyComparisonState())
     val state: State<CurrencyComparisonState> = _state
 
-    init {
-        compare("USD", "QAR", "EUR","20")
-    }
 
-    private fun compare(
+
+   fun compare(
         base: String,
         firstTarget: String,
         secondTarget: String,
@@ -59,6 +57,6 @@ class CurrencyComparisonViewModel @Inject constructor(
     }
 
     fun setAmountState(amount: String) {
-        _state.value = CurrencyComparisonState(amountState = amount.toDouble())
+        _state.value = CurrencyComparisonState(amount = amount)
     }
 }

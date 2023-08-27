@@ -6,7 +6,7 @@ data class CurrencyComparisonState(
     val error: String = "",
     val value: ComparisonResponse = ComparisonResponse(0.0, 0.0),
     val isLoading: Boolean = false,
-    val amountState : Double =0.0,
+    val amount: String = "",
     var painterBase: String = "",
     var painterFirstTarget: String = "",
     var painterSecondTarget: String = "",

@@ -26,14 +26,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.hazem.currencyconversionapp.presentation.main_component.CurrencyMenu
 import com.hazem.currencyconversionapp.presentation.main_component.Currencies
+import com.hazem.currencyconversionapp.presentation.main_component.CurrencyMenu
 import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Comparison(currencyComparisonViewModel: CurrencyComparisonViewModel = hiltViewModel(),
-              ) {
+fun Comparison(
+    currencyComparisonViewModel: CurrencyComparisonViewModel = hiltViewModel(),
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -63,7 +64,7 @@ fun Comparison(currencyComparisonViewModel: CurrencyComparisonViewModel = hiltVi
 
         Row {
             OutlinedTextField(
-                value = currencyComparisonViewModel.state.value.amountState.toString(),
+                value = currencyComparisonViewModel.state.value.amount,
                 onValueChange = {
                     currencyComparisonViewModel.setAmountState(it)
                 },
@@ -83,8 +84,10 @@ fun Comparison(currencyComparisonViewModel: CurrencyComparisonViewModel = hiltVi
                     )
             )
             CurrencyMenu(
-                currency = Currencies(currencyComparisonViewModel.state.value.base,
-                    currencyComparisonViewModel.state.value.painterBase),
+                currency = Currencies(
+                    currencyComparisonViewModel.state.value.base,
+                    currencyComparisonViewModel.state.value.painterBase
+                ),
                 onItemClicked = { base ->
                     currencyComparisonViewModel.state.value.base = base
                 }, modifier = Modifier
@@ -121,8 +124,10 @@ fun Comparison(currencyComparisonViewModel: CurrencyComparisonViewModel = hiltVi
         Spacer(modifier = Modifier.height(15.dp))
         Row {
             CurrencyMenu(
-                currency = Currencies(currencyComparisonViewModel.state.value.firstTarget,
-                    currencyComparisonViewModel.state.value.painterFirstTarget),
+                currency = Currencies(
+                    currencyComparisonViewModel.state.value.firstTarget,
+                    currencyComparisonViewModel.state.value.painterFirstTarget
+                ),
                 onItemClicked = { firstTarget ->
                     currencyComparisonViewModel.state.value.firstTarget = firstTarget
                 }, modifier = Modifier
@@ -137,8 +142,10 @@ fun Comparison(currencyComparisonViewModel: CurrencyComparisonViewModel = hiltVi
             )
 
             CurrencyMenu(
-                currency = Currencies(currencyComparisonViewModel.state.value.secondTarget,
-                    currencyComparisonViewModel.state.value.painterSecondTarget),
+                currency = Currencies(
+                    currencyComparisonViewModel.state.value.secondTarget,
+                    currencyComparisonViewModel.state.value.painterSecondTarget
+                ),
                 onItemClicked = { secondTarget ->
                     currencyComparisonViewModel.state.value.secondTarget = secondTarget
                 }, modifier = Modifier
@@ -154,7 +161,8 @@ fun Comparison(currencyComparisonViewModel: CurrencyComparisonViewModel = hiltVi
         Spacer(modifier = Modifier.height(15.dp))
         Row {
             OutlinedTextField(
-                value = "2", onValueChange = {},
+                value = currencyComparisonViewModel.state.value.value.firstConversionValue.toString(),
+                onValueChange = {},
                 readOnly = true,
 
                 modifier = Modifier
@@ -171,7 +179,8 @@ fun Comparison(currencyComparisonViewModel: CurrencyComparisonViewModel = hiltVi
                 shape = RoundedCornerShape(size = 20.dp)
             )
             OutlinedTextField(
-                value = "2", onValueChange = {},
+                value = currencyComparisonViewModel.state.value.value.secondConversionValue.toString(),
+                onValueChange = {},
                 readOnly = true,
 
                 modifier = Modifier
@@ -190,7 +199,14 @@ fun Comparison(currencyComparisonViewModel: CurrencyComparisonViewModel = hiltVi
 
         Spacer(modifier = Modifier.height(15.dp))
         Button(
-            onClick = { },
+            onClick = {
+                currencyComparisonViewModel.compare(
+                    currencyComparisonViewModel.state.value.base,
+                    currencyComparisonViewModel.state.value.firstTarget,
+                    currencyComparisonViewModel.state.value.secondTarget,
+                    currencyComparisonViewModel.state.value.amount
+                )
+            },
             colors = ButtonDefaults.buttonColors(Color.Black),
             modifier = Modifier
                 .fillMaxWidth()
