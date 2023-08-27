@@ -5,9 +5,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircleOutline
@@ -24,14 +23,32 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyConversionViewModel
+import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyEvents
 
 
 @Composable
-fun Portfolio(currencyConversionViewModel: CurrencyConversionViewModel = hiltViewModel(),
-              navController: NavController) {
+fun Portfolio(
+    currencyConversionViewModel: CurrencyConversionViewModel = hiltViewModel(),
+    navController: NavController
+) {
+    currencyConversionViewModel.onEvent(CurrencyEvents.GetAllFavoriteCurrencies)
 
-    Column(modifier = Modifier.padding(24.dp)) {
-        Row {
+    val favList = currencyConversionViewModel.getAllFavoriteCurrencyState.value.allCurrency
+
+    val favoriteList = favList.map { it.currency }
+
+    currencyConversionViewModel.getFavoritesDetails(
+        base = currencyConversionViewModel.state.value.base,
+        favorites = favoriteList
+    )
+    val liveExchangeList = currencyConversionViewModel.currencyDetailsState.value.favorites
+
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp)
+        ) {
             Text(
                 text = "live exchange rates",
                 style = TextStyle(
@@ -64,7 +81,7 @@ fun Portfolio(currencyConversionViewModel: CurrencyConversionViewModel = hiltVie
                             fontSize = 10.87.sp,
                             //fontFamily = FontFamily(Font(R.font.poppins)),
                             fontWeight = FontWeight(500),
-                            color = Color(0xFF363636),
+                            color = Color.Black,
                         )
                     )
                 }
@@ -81,24 +98,12 @@ fun Portfolio(currencyConversionViewModel: CurrencyConversionViewModel = hiltVie
                 color = Color.Black,
             ), modifier = Modifier.padding(10.dp)
         )
-        LazyColumn {
-            currencyConversionViewModel.getAllCurrencyFromFavorite()
-            val favListCurrency = mutableListOf<String>()
-
-            currencyConversionViewModel.getAllFavoriteCurrencyState.value.allCurrency.forEach {
-                favListCurrency.add(it.currency)
-            }
-
-            currencyConversionViewModel.getFavoritesDetails(
-                currencyConversionViewModel.state.value.base,
-                favListCurrency
-            )
-            val liveExchangeList = currencyConversionViewModel.currencyDetailsState.value.favorites
-            items(liveExchangeList) {
+        Column {
+            repeat(liveExchangeList.size) { index ->
                 PortfolioItem(
-                    imageUrl = it.flag,
-                    currency = it.currency,
-                    exchangeRate = it.exchangeRate
+                    imageUrl = liveExchangeList[index].flag,
+                    currency = liveExchangeList[index].currency,
+                    exchangeRate = liveExchangeList[index].exchangeRate
                 )
             }
         }
