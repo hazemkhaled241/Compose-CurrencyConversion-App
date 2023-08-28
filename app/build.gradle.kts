@@ -106,4 +106,25 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
+
+
+    //unit test
+    testImplementation( "junit:junit:4.13.2")
+    androidTestImplementation( "androidx.test.ext:junit:1.1.5")
+    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
+
+    testImplementation ("com.google.truth:truth:1.1.3")
+    androidTestImplementation ("com.google.truth:truth:1.1.3")
+
+    // mockk
+    testImplementation ("io.mockk:mockk:1.13.3")
+
+    // Coroutine test
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+
+    // option ( making testing flows easily )
+    testImplementation ("app.cash.turbine:turbine:0.7.0")
+
+    // Google truth for assertion
+    testImplementation ("com.google.truth:truth:1.1.3")
 }

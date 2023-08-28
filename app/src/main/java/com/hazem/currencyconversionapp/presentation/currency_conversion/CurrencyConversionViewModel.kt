@@ -42,9 +42,12 @@ class CurrencyConversionViewModel @Inject constructor(
     private val _deleteCurrencyState = mutableStateOf(DeleteCurrencyState())
     val deleteCurrencyState: State<DeleteCurrencyState> = _deleteCurrencyState
 
+    private val _amountState = mutableStateOf(CurrencyConversionState())
+    val amountState: State<CurrencyConversionState> = _amountState
 
     init {
         getAllCurrencyFromFavorite()
+
     }
 
     fun onEvent(event: CurrencyEvents) {
@@ -65,6 +68,12 @@ class CurrencyConversionViewModel @Inject constructor(
             CurrencyEvents.GetAllFavoriteCurrencies -> {
                 viewModelScope.launch {
                     getAllFavoriteCurrenciesUseCase()
+                }
+            }
+
+            is CurrencyEvents.GetFavoritesDetails -> {
+                viewModelScope.launch {
+                    getFavoritesDetails(base = event.base, favorites = event.currencies)
                 }
             }
         }
@@ -95,7 +104,7 @@ class CurrencyConversionViewModel @Inject constructor(
 
     }
 
-    fun getFavoritesDetails(
+    private fun getFavoritesDetails(
         base: String,
         favorites: List<String>,
     ) {
@@ -109,6 +118,7 @@ class CurrencyConversionViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> {
+                        Log.d("kkk", result.data.toString())
                         _currencyDetailsState.value = FavoritesDetailsState(isLoading = false)
                         _currencyDetailsState.value = FavoritesDetailsState(favorites = result.data)
 
@@ -123,7 +133,7 @@ class CurrencyConversionViewModel @Inject constructor(
         _state.value = CurrencyConversionState(amount = amount)
     }
 
-     fun getAllCurrencyFromFavorite() {
+    private fun getAllCurrencyFromFavorite() {
         viewModelScope.launch {
             _getAllFavoriteCurrencyState.value =
                 GetAllFavoriteCurrencyState(isLoading = true)
