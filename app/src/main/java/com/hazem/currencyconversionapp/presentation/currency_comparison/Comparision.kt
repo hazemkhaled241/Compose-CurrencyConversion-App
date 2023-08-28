@@ -65,7 +65,7 @@ fun Comparison(
 
         Row {
             OutlinedTextField(
-                value = currencyComparisonViewModel.state.value.amount,
+                value = currencyComparisonViewModel.enteringAmount.value,
                 onValueChange = {
                     currencyComparisonViewModel.setAmountState(it)
                 },
@@ -86,11 +86,12 @@ fun Comparison(
             )
             CurrencyMenu(
                 currency = Currencies(
-                    currencyComparisonViewModel.state.value.base,
-                    currencyComparisonViewModel.state.value.painterBase
+                    currencyComparisonViewModel.currencyBase,
+                    currencyComparisonViewModel.painterBase
                 ),
-                onItemClicked = { base ->
-                    currencyComparisonViewModel.state.value.base = base
+                onItemClicked = { base , painter->
+                    currencyComparisonViewModel.currencyBase = base
+                    currencyComparisonViewModel.painterBase = painter
                 }, modifier = Modifier
                     .weight(1f)
                     .height(52.dp)
@@ -126,11 +127,12 @@ fun Comparison(
         Row {
             CurrencyMenu(
                 currency = Currencies(
-                    currencyComparisonViewModel.state.value.firstTarget,
-                    currencyComparisonViewModel.state.value.painterFirstTarget
+                    currencyComparisonViewModel.currencyFirstTarget,
+                    currencyComparisonViewModel.painterFirstTarget
                 ),
-                onItemClicked = { firstTarget ->
-                    currencyComparisonViewModel.state.value.firstTarget = firstTarget
+                onItemClicked = { firstTarget  , painter->
+                    currencyComparisonViewModel.currencyFirstTarget = firstTarget
+                    currencyComparisonViewModel.painterFirstTarget = painter
                 }, modifier = Modifier
                     .padding(end = 15.dp)
                     .weight(1f)
@@ -144,11 +146,12 @@ fun Comparison(
 
             CurrencyMenu(
                 currency = Currencies(
-                    currencyComparisonViewModel.state.value.secondTarget,
-                    currencyComparisonViewModel.state.value.painterSecondTarget
+                    currencyComparisonViewModel.currencySecondTarget,
+                    currencyComparisonViewModel.painterSecondTarget
                 ),
-                onItemClicked = { secondTarget ->
-                    currencyComparisonViewModel.state.value.secondTarget = secondTarget
+                onItemClicked = { secondTarget , painter ->
+                    currencyComparisonViewModel.currencySecondTarget = secondTarget
+                    currencyComparisonViewModel.painterSecondTarget = painter
                 }, modifier = Modifier
                     .weight(1f)
                     .height(52.dp)
@@ -202,10 +205,10 @@ fun Comparison(
         Button(
             onClick = {
                 currencyComparisonViewModel.compare(
-                    currencyComparisonViewModel.state.value.base,
-                    currencyComparisonViewModel.state.value.firstTarget,
-                    currencyComparisonViewModel.state.value.secondTarget,
-                    currencyComparisonViewModel.state.value.amount
+                    currencyComparisonViewModel.currencyBase,
+                    currencyComparisonViewModel.currencyFirstTarget,
+                    currencyComparisonViewModel.currencySecondTarget,
+                    currencyComparisonViewModel.enteringAmount.value
                 )
             },
             colors = ButtonDefaults.buttonColors(Color.Black),

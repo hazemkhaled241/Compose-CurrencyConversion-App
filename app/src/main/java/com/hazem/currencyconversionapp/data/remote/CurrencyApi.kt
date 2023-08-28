@@ -16,11 +16,11 @@ interface CurrencyApi {
         @Path("amount") amount: String
     ): ConversionResponseDto
 
-    @GET("compare/{base}/{first_target}/{second_target}/{amount}")
+    @GET("compare/{base}/{firstTarget}/{secondTarget}/{amount}")
     suspend fun compare(
         @Path("base") base: String,
-        @Path("first_target") firstTarget: String,
-        @Path("second_target") secondTarget: String,
+        @Path("firstTarget") firstTarget: String,
+        @Path("secondTarget") secondTarget: String,
         @Path("amount") amount: String
     ): ComparisonResponseDto
 
@@ -29,7 +29,7 @@ interface CurrencyApi {
 
     @GET("rates")
     suspend fun getRatesOfFavorites(
-        @Query("base_code") base: String,
+        @Query("baseCode") base: String ,
         @Query("targets") targets: List<String>,
     ): FavoritesDto
 }
