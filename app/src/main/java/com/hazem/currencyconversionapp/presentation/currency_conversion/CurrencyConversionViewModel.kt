@@ -42,8 +42,20 @@ class CurrencyConversionViewModel @Inject constructor(
     private val _deleteCurrencyState = mutableStateOf(DeleteCurrencyState())
     val deleteCurrencyState: State<DeleteCurrencyState> = _deleteCurrencyState
 
-    private val _amountState = mutableStateOf(CurrencyConversionState())
-    val amountState: State<CurrencyConversionState> = _amountState
+    private val _currencyBase = mutableStateOf("")
+    var currencyBase: String = _currencyBase.value
+
+    private val _currencyTarget = mutableStateOf("")
+    var currencyTarget: String = _currencyTarget.value
+
+    private val _painterBase = mutableStateOf("")
+    var painterBase: String= _painterBase.value
+
+    private val _painterTarget = mutableStateOf("")
+    var painterTarget: String = _painterTarget.value
+
+    var enteringAmount = mutableStateOf("")
+
 
     init {
         getAllCurrencyFromFavorite()
@@ -130,7 +142,7 @@ class CurrencyConversionViewModel @Inject constructor(
     }
 
     fun setAmountState(amount: String) {
-        _state.value = CurrencyConversionState(amount = amount)
+      enteringAmount.value = amount
     }
 
     private fun getAllCurrencyFromFavorite() {
@@ -159,6 +171,7 @@ class CurrencyConversionViewModel @Inject constructor(
             }
         }
     }
+
 
 
 }

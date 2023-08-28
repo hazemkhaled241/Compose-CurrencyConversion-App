@@ -1,5 +1,6 @@
 package com.hazem.currencyconversionapp.presentation.currency_conversion.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -71,8 +72,8 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
 
         Row(horizontalArrangement = Arrangement.Start) {
             OutlinedTextField(
-                value = currencyConversionViewModel.state.value.amount, onValueChange = {
-                    currencyConversionViewModel.setAmountState(it)
+                value = currencyConversionViewModel.enteringAmount.value, onValueChange = {
+                  currencyConversionViewModel.setAmountState(it)
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 shape = RoundedCornerShape(size = 20.dp),
@@ -90,11 +91,12 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
             )
             CurrencyMenu(
                 currency = Currencies(
-                    currencyConversionViewModel.state.value.base,
-                    currencyConversionViewModel.state.value.painterBase
+                    currencyConversionViewModel.currencyBase,
+                    currencyConversionViewModel.painterBase
                 ),
-                onItemClicked = { base ->
-                    currencyConversionViewModel.state.value.base = base
+                onItemClicked = { base, painter ->
+                    currencyConversionViewModel.currencyBase = base
+                    currencyConversionViewModel.painterBase = painter
                 }, modifier = Modifier
                     .weight(2f)
                     .height(50.dp)
@@ -134,11 +136,13 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
         Row(horizontalArrangement = Arrangement.Start) {
             CurrencyMenu(
                 currency = Currencies(
-                    currencyConversionViewModel.state.value.target,
-                    currencyConversionViewModel.state.value.painterTarget
+                    currencyConversionViewModel.currencyTarget,
+                    currencyConversionViewModel.painterTarget
                 ),
-                onItemClicked = { target ->
-                    currencyConversionViewModel.state.value.target = target
+                onItemClicked = { target, pianter ->
+                    currencyConversionViewModel.currencyTarget = target
+                    currencyConversionViewModel.painterTarget = pianter
+
                 },
                 modifier = Modifier
                     .weight(2f)
@@ -172,10 +176,13 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
         Button(
             onClick = {
                 currencyConversionViewModel.convertCurrency(
-                    currencyConversionViewModel.state.value.base,
-                    currencyConversionViewModel.state.value.target,
-                    currencyConversionViewModel.state.value.amount
+                    currencyConversionViewModel.currencyBase,
+                    currencyConversionViewModel.currencyTarget,
+                    currencyConversionViewModel.enteringAmount.value
                 )
+                Log.d("convert", currencyConversionViewModel.currencyBase)
+                Log.d("convert", currencyConversionViewModel.currencyTarget)
+
             },
             colors = ButtonDefaults.buttonColors(Color.Black),
             modifier = Modifier
