@@ -1,5 +1,6 @@
 package com.hazem.currencyconversionapp.data.repository.local
 
+import com.hazem.currencyconversionapp.currenciesList
 import com.hazem.currencyconversionapp.data.local.entities.CurrencyEntity
 import com.hazem.currencyconversionapp.domain.repository.local.FavoriteCurrenciesRepository
 import com.hazem.currencyconversionapp.utils.Resource
