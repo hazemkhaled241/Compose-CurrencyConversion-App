@@ -42,7 +42,7 @@ import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
 fun CurrencyMenu(
     currenciesViewModel: CurrenciesViewModel = hiltViewModel(),
     currency: Currencies,
-    onItemClicked: (String) -> Unit,
+    onItemClicked: (String, String) -> Unit,
     modifier: Modifier
 ) {
 
@@ -114,7 +114,6 @@ fun CurrencyMenu(
                                 ),
                         )
                         Text(text = currenciesViewModel.state.value.currencyList[it].currency)
-
                     }
                 },
                     onClick = {
@@ -123,9 +122,10 @@ fun CurrencyMenu(
                             currenciesViewModel.state.value.currencyList[it].currency
                         currency.flag =
                             currenciesViewModel.state.value.currencyList[it].flag
-
-
-                        onItemClicked(currenciesViewModel.state.value.currencyList[it].currency)
+                        onItemClicked(
+                            currenciesViewModel.state.value.currencyList[it].currency,
+                            currenciesViewModel.state.value.currencyList[it].flag
+                        )
                         isMenuExpanded = false
 
                     })
