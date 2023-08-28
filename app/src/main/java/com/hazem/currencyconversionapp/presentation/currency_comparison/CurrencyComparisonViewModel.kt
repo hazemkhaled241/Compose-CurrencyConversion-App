@@ -20,8 +20,28 @@ class CurrencyComparisonViewModel @Inject constructor(
     val state: State<CurrencyComparisonState> = _state
 
 
+    private val _currencyBase = mutableStateOf("")
+    var currencyBase: String = _currencyBase.value
 
-   fun compare(
+    private val _currencyFirstTarget = mutableStateOf("")
+    var currencyFirstTarget: String = _currencyFirstTarget.value
+
+    private val _currencySecondTarget = mutableStateOf("")
+    var currencySecondTarget: String = _currencySecondTarget.value
+
+    private val _painterBase = mutableStateOf("")
+    var painterBase: String= _painterBase.value
+
+    private val _painterFirstTarget = mutableStateOf("")
+    var painterFirstTarget: String = _painterFirstTarget.value
+    private val _painterSecondTarget = mutableStateOf("")
+    var painterSecondTarget: String = _painterSecondTarget.value
+
+    var enteringAmount = mutableStateOf("")
+
+
+
+    fun compare(
         base: String,
         firstTarget: String,
         secondTarget: String,
@@ -57,6 +77,6 @@ class CurrencyComparisonViewModel @Inject constructor(
     }
 
     fun setAmountState(amount: String) {
-        _state.value = CurrencyComparisonState(amount = amount)
+       enteringAmount.value = amount
     }
 }
