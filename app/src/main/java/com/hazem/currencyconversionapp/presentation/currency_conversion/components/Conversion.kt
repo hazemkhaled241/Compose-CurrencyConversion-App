@@ -173,7 +173,7 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
             onClick = {
                 currencyConversionViewModel.convertCurrency(
                     currencyConversionViewModel.state.value.base,
-                    currencyConversionViewModel.state.value.base,
+                    currencyConversionViewModel.state.value.target,
                     currencyConversionViewModel.state.value.amount
                 )
             },
