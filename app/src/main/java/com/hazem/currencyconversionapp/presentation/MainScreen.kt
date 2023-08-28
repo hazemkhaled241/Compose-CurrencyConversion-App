@@ -1,3 +1,4 @@
+
 package com.hazem.currencyconversionapp.presentation
 
 import android.util.Log
@@ -40,7 +41,10 @@ fun MainScreen(
     var isCompareClicked by remember {
         mutableStateOf(false)
     }
-
+    var pageName by remember {
+        mutableStateOf("Currency Converter")
+    }
+   
     currencyConversionViewModel.onEvent(CurrencyEvents.GetAllFavoriteCurrencies)
 //if(currencyConversionViewModel.getAllFavoriteCurrencyState.value.isLoading){
 //    Box(modifier = Modifier.fillMaxSize()){
@@ -52,21 +56,29 @@ fun MainScreen(
 
     val favoriteList = favList.map { it.currency }
     if (!currencyConversionViewModel.getAllFavoriteCurrencyState.value.isLoading) {
-        LaunchedEffect(Unit) {
+        LaunchedEffect(key1 =currencyConversionViewModel.currencyBase) {
             Log.d("kkk", favoriteList.toString())
-
+         if (currencyConversionViewModel.currencyBase.isNotEmpty()){
             currencyConversionViewModel.onEvent(
                 CurrencyEvents.GetFavoritesDetails(
-                    base = "USD",
+                    base = currencyConversionViewModel.currencyBase,
                     currencies = favoriteList
                 )
             )
+         }else{
+             currencyConversionViewModel.onEvent(
+                 CurrencyEvents.GetFavoritesDetails(
+                     base = "USD",
+                     currencies = favoriteList
+                 )
+             )
+         }
 
         }
     }
     Box(modifier = Modifier.fillMaxSize()){
 
-    val liveExchangeList = currencyConversionViewModel.currencyDetailsState.value.favorites
+        val liveExchangeList = currencyConversionViewModel.currencyDetailsState.value.favorites
 
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             ConstraintLayout {
@@ -79,7 +91,8 @@ fun MainScreen(
                             end.linkTo(parent.end)
                         }
                 ) {
-                    TopOfScreen()
+
+                    TopOfScreen(pageName = pageName)
                 }
                 Box(
                     modifier = Modifier
@@ -92,10 +105,14 @@ fun MainScreen(
                     ConvertAndCompareToggle(onCompareClicked = {
                         isConvertClicked = false
                         isCompareClicked = true
+                        pageName = "Currency Compare"
 
-                    }, onConvertClicked = {
+                    },
+                        onConvertClicked = {
                         isConvertClicked = true
                         isCompareClicked = false
+                        pageName = "Currency converter"
+
                     })
                 }
 
@@ -125,14 +142,14 @@ fun MainScreen(
                         bottom.linkTo(parent.bottom)
                     }) {
                     if (!currencyConversionViewModel.currencyDetailsState.value.isLoading) {
-                    Portfolio(navController = navController, list = liveExchangeList)}
+                        Portfolio(navController = navController, list = liveExchangeList)}
                 }
 
 
             }
         }
         if (currencyConversionViewModel.currencyDetailsState.value.isLoading) {
-        CircularProgressIndicator(modifier = Modifier.align(Alignment.Center), color = Color.Blue)
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center), color = Color.Blue)
+        }
     }
-}
 }

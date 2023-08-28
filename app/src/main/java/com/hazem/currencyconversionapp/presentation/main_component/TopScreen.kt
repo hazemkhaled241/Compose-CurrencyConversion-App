@@ -24,7 +24,7 @@ import com.hazem.currencyconversionapp.R
 
 
 @Composable
-fun TopOfScreen() {
+fun TopOfScreen(pageName:String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -51,7 +51,7 @@ fun TopOfScreen() {
         ) {
 
             Text(
-                text = "Currency Converter",
+                text = pageName,
                 style = TextStyle(
                     fontSize = 22.sp,
                     //  fontFamily = FontFamily(Font(R.font.montserrat)),
