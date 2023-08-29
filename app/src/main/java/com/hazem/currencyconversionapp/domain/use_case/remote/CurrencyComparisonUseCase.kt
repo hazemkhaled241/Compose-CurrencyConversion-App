@@ -14,11 +14,15 @@ class CurrencyComparisonUseCase @Inject constructor(
         secondTarget: String,
         amount: String
     ): Resource<ComparisonResponse, String> {
-        return currencyRepository.convertCurrencyWithTwoTarget(
-            base = base,
-            firstTarget = firstTarget,
-            secondTarget = secondTarget,
-            amount = amount
-        )
+        return if (amount.isNotEmpty()) {
+            currencyRepository.convertCurrencyWithTwoTarget(
+                base = base,
+                firstTarget = firstTarget,
+                secondTarget = secondTarget,
+                amount = amount
+            )
+        } else {
+            Resource.Error("Amount can not be empty")
+        }
     }
 }
