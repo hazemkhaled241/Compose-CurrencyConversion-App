@@ -1,6 +1,5 @@
 package com.hazem.currencyconversionapp.presentation.currency_comparison
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.hazem.currencyconversionapp.presentation.main_component.Currencies
 import com.hazem.currencyconversionapp.presentation.main_component.CurrencyMenu
 import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
+import com.hazem.currencyconversionapp.presentation.ui.theme.Gray
 import java.text.DecimalFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,21 +77,18 @@ fun Comparison(
                     .padding(end = 15.dp)
                     .border(
                         width = 0.5.dp,
-                        color = DarkWhite,
+                        color = Gray,
                         shape = RoundedCornerShape(size = 25.dp)
                     )
                     .weight(1f)
-                    .background(
-                        color = Color.White,
-                        shape = RoundedCornerShape(size = 25.dp)
-                    )
+
             )
             CurrencyMenu(
                 currency = Currencies(
                     currencyComparisonViewModel.currencyBase,
                     currencyComparisonViewModel.painterBase
                 ),
-                onItemClicked = { base , painter->
+                onItemClicked = { base, painter ->
                     currencyComparisonViewModel.currencyBase = base
                     currencyComparisonViewModel.painterBase = painter
                 }, modifier = Modifier
@@ -132,7 +129,7 @@ fun Comparison(
                     currencyComparisonViewModel.currencyFirstTarget,
                     currencyComparisonViewModel.painterFirstTarget
                 ),
-                onItemClicked = { firstTarget  , painter->
+                onItemClicked = { firstTarget, painter ->
                     currencyComparisonViewModel.currencyFirstTarget = firstTarget
                     currencyComparisonViewModel.painterFirstTarget = painter
                 }, modifier = Modifier
@@ -151,7 +148,7 @@ fun Comparison(
                     currencyComparisonViewModel.currencySecondTarget,
                     currencyComparisonViewModel.painterSecondTarget
                 ),
-                onItemClicked = { secondTarget , painter ->
+                onItemClicked = { secondTarget, painter ->
                     currencyComparisonViewModel.currencySecondTarget = secondTarget
                     currencyComparisonViewModel.painterSecondTarget = painter
                 }, modifier = Modifier
@@ -167,8 +164,9 @@ fun Comparison(
         Spacer(modifier = Modifier.height(15.dp))
         Row {
             OutlinedTextField(
-                value = dec.format(currencyComparisonViewModel.state.value.value.
-                firstConversionValue).toString(),
+                value = dec.format(
+                    currencyComparisonViewModel.state.value.value.firstConversionValue
+                ).toString(),
                 onValueChange = {},
                 readOnly = true,
 
@@ -176,29 +174,22 @@ fun Comparison(
                     .padding(end = 15.dp)
                     .weight(1f)
                     .border(
-                        width = 0.5.dp, color = Color(0xFFC5C5C5),
-                        shape = RoundedCornerShape(size = 25.dp)
-                    )
-                    .background(
-                        color = Color.White,
+                        width = 0.5.dp, color = Gray,
                         shape = RoundedCornerShape(size = 25.dp)
                     ),
                 shape = RoundedCornerShape(size = 25.dp)
             )
             OutlinedTextField(
-                value = dec.format(currencyComparisonViewModel.state.value.value.
-                secondConversionValue).toString(),
+                value = dec.format(
+                    currencyComparisonViewModel.state.value.value.secondConversionValue
+                ).toString(),
                 onValueChange = {},
                 readOnly = true,
 
                 modifier = Modifier
                     .weight(1f)
                     .border(
-                        width = 0.5.dp, color = Color(0xFFC5C5C5),
-                        shape = RoundedCornerShape(size = 25.dp)
-                    )
-                    .background(
-                        color = Color.White,
+                        width = 0.5.dp, color =  Gray,
                         shape = RoundedCornerShape(size = 25.dp)
                     ),
                 shape = RoundedCornerShape(size = 25.dp)
