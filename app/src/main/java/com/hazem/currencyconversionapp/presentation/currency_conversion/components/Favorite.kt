@@ -70,10 +70,12 @@ if(!currencyConversionViewModel.getAllFavoriteCurrencyState.value.isLoading) {
             )
         }
         IconButton(
-            onClick = { navController.navigate("main")  },
+            onClick = { navController.popBackStack()
+                navController.navigate("main")
+                    },
             modifier = Modifier
-                .align(Alignment.TopEnd)
                 .padding(15.dp)
+                .align(Alignment.TopEnd)
         ) {
             Icon(
                 imageVector = Icons.Filled.Close, contentDescription = "close Icon",
