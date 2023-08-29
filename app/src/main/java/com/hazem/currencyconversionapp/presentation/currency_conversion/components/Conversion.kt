@@ -1,7 +1,6 @@
 package com.hazem.currencyconversionapp.presentation.currency_conversion.components
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,6 +33,7 @@ import com.hazem.currencyconversionapp.presentation.currency_conversion.Currency
 import com.hazem.currencyconversionapp.presentation.main_component.Currencies
 import com.hazem.currencyconversionapp.presentation.main_component.CurrencyMenu
 import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
+import com.hazem.currencyconversionapp.presentation.ui.theme.Gray
 import java.text.DecimalFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -86,14 +86,11 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
                 modifier = Modifier
                     .padding(end = 15.dp)
                     .border(
-                        width = 0.5.dp, color = DarkWhite,
+                        width = 0.5.dp, color =  Gray,
                         shape = RoundedCornerShape(size = 25.dp)
                     )
                     .weight(1f)
-                    .background(
-                        color = Color.White,
-                        shape = RoundedCornerShape(size = 25.dp)
-                    )
+
             )
             CurrencyMenu(
                 currency = Currencies(
@@ -175,14 +172,11 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
                 modifier = Modifier
                     .padding(start = 10.dp)
                     .border(
-                        width = 0.5.dp, color = DarkWhite,
+                        width = 0.5.dp, color =  Gray,
                         shape = RoundedCornerShape(size = 25.dp)
                     )
                     .weight(1f)
-                    .background(
-                        color = Color.White,
-                        shape = RoundedCornerShape(size = 25.dp)
-                    ),
+                    ,
                 shape = RoundedCornerShape(size = 25.dp)
             )
         }
