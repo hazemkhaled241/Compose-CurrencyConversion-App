@@ -137,6 +137,6 @@ fun CurrencyMenu(
 }
 
 data class Currencies(
-    var currency: String,
+    var currency: String = "USD",
     var flag: String
 )
