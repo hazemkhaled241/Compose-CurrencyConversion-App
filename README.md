@@ -1,5 +1,5 @@
 # CurrencyConversion-App
-<img src = "screenshots/currency.png" width = "100">
+<img src = "screenshots/currency.svg" width = "100">
 
 ![AGPL License](https://img.shields.io/badge/AndroidStudio-blue.svg) 
 ![AGPL License](https://img.shields.io/badge/Kotlin-blue.svg) 
