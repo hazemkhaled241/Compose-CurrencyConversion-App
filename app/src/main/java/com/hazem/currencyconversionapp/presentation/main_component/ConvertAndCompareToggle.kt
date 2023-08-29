@@ -18,14 +18,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.hazem.currencyconversionapp.presentation.base.MainViewModel
 import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
 
 @Composable
 fun ConvertAndCompareToggle(
-    /* currencyConversionViewModel: CurrencyConversionViewModel = hiltViewModel(),
-     currencyComparisonViewModel: CurrencyComparisonViewModel = hiltViewModel()*/
-    onConvertClicked: () -> Unit,
-    onCompareClicked: () -> Unit
+    mainViewModel: MainViewModel = hiltViewModel()
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(
@@ -41,8 +40,11 @@ fun ConvertAndCompareToggle(
 
         Button(
             onClick = {
-                onConvertClicked()
-            }, colors = ButtonDefaults.buttonColors(Color.White),
+              mainViewModel.update(bool = true , bool2 = false)
+                mainViewModel.pageNameState ="Currency Convert"
+            }, colors = ButtonDefaults
+                .buttonColors(containerColor = Color.White, disabledContainerColor = DarkWhite),
+            enabled =! mainViewModel.isConvertClickedState.value,
             modifier = Modifier.padding(5.dp)
         ) {
             Text(
@@ -57,8 +59,11 @@ fun ConvertAndCompareToggle(
         }
         Button(
             onClick = {
-                onCompareClicked()
-            }, colors = ButtonDefaults.buttonColors(Color.White),
+               mainViewModel.update(bool = false ,bool2 = true)
+                mainViewModel.pageNameState ="Currency Compare"
+            }, colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White, disabledContainerColor = DarkWhite
+            ),enabled =! mainViewModel.isCompareClickedState.value,
             modifier = Modifier.padding(5.dp)
         ) {
             Text(

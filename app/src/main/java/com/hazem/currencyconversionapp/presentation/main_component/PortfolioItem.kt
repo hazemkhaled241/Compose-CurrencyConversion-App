@@ -76,7 +76,7 @@ fun PortfolioItem(
                 fontWeight = FontWeight(500),
                 color = Color.Black,
                 textAlign = TextAlign.Center,
-            ), modifier = Modifier.align(Alignment.CenterEnd)
+            ), modifier = Modifier.align(Alignment.CenterEnd).padding(5.dp)
         )
         Divider(
             modifier = Modifier

@@ -30,12 +30,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.hazem.currencyconversionapp.presentation.main_component.Currencies
 import com.hazem.currencyconversionapp.presentation.main_component.CurrencyMenu
 import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
+import java.text.DecimalFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Comparison(
     currencyComparisonViewModel: CurrencyComparisonViewModel = hiltViewModel(),
 ) {
+    val dec = DecimalFormat("#,###.###")
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -70,18 +72,18 @@ fun Comparison(
                     currencyComparisonViewModel.setAmountState(it)
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                shape = RoundedCornerShape(size = 20.dp),
+                shape = RoundedCornerShape(size = 25.dp),
                 modifier = Modifier
                     .padding(end = 15.dp)
                     .border(
                         width = 0.5.dp,
-                        color = Color(0xFFC5C5C5),
-                        shape = RoundedCornerShape(size = 20.dp)
+                        color = DarkWhite,
+                        shape = RoundedCornerShape(size = 25.dp)
                     )
                     .weight(1f)
                     .background(
                         color = Color.White,
-                        shape = RoundedCornerShape(size = 20.dp)
+                        shape = RoundedCornerShape(size = 25.dp)
                     )
             )
             CurrencyMenu(
@@ -165,7 +167,8 @@ fun Comparison(
         Spacer(modifier = Modifier.height(15.dp))
         Row {
             OutlinedTextField(
-                value = currencyComparisonViewModel.state.value.value.firstConversionValue.toString(),
+                value = dec.format(currencyComparisonViewModel.state.value.value.
+                firstConversionValue).toString(),
                 onValueChange = {},
                 readOnly = true,
 
@@ -174,16 +177,17 @@ fun Comparison(
                     .weight(1f)
                     .border(
                         width = 0.5.dp, color = Color(0xFFC5C5C5),
-                        shape = RoundedCornerShape(size = 20.dp)
+                        shape = RoundedCornerShape(size = 25.dp)
                     )
                     .background(
                         color = Color.White,
-                        shape = RoundedCornerShape(size = 20.dp)
+                        shape = RoundedCornerShape(size = 25.dp)
                     ),
-                shape = RoundedCornerShape(size = 20.dp)
+                shape = RoundedCornerShape(size = 25.dp)
             )
             OutlinedTextField(
-                value = currencyComparisonViewModel.state.value.value.secondConversionValue.toString(),
+                value = dec.format(currencyComparisonViewModel.state.value.value.
+                secondConversionValue).toString(),
                 onValueChange = {},
                 readOnly = true,
 
@@ -191,13 +195,13 @@ fun Comparison(
                     .weight(1f)
                     .border(
                         width = 0.5.dp, color = Color(0xFFC5C5C5),
-                        shape = RoundedCornerShape(size = 20.dp)
+                        shape = RoundedCornerShape(size = 25.dp)
                     )
                     .background(
                         color = Color.White,
-                        shape = RoundedCornerShape(size = 20.dp)
+                        shape = RoundedCornerShape(size = 25.dp)
                     ),
-                shape = RoundedCornerShape(size = 20.dp)
+                shape = RoundedCornerShape(size = 25.dp)
             )
         }
 
@@ -214,7 +218,7 @@ fun Comparison(
             colors = ButtonDefaults.buttonColors(Color.Black),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 50.dp)
+                .padding(bottom = 80.dp)
                 .clip(CircleShape)
         ) {
             Text(

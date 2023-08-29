@@ -20,21 +20,21 @@ class CurrencyComparisonViewModel @Inject constructor(
     val state: State<CurrencyComparisonState> = _state
 
 
-    private val _currencyBase = mutableStateOf("")
+    private val _currencyBase = mutableStateOf("USD")
     var currencyBase: String = _currencyBase.value
 
-    private val _currencyFirstTarget = mutableStateOf("")
+    private val _currencyFirstTarget = mutableStateOf("EGP")
     var currencyFirstTarget: String = _currencyFirstTarget.value
 
-    private val _currencySecondTarget = mutableStateOf("")
+    private val _currencySecondTarget = mutableStateOf("SAR")
     var currencySecondTarget: String = _currencySecondTarget.value
 
-    private val _painterBase = mutableStateOf("")
+    private val _painterBase = mutableStateOf("https://www.countryflagicons.com/FLAT/64/US.png")
     var painterBase: String= _painterBase.value
 
-    private val _painterFirstTarget = mutableStateOf("")
+    private val _painterFirstTarget = mutableStateOf("https://www.countryflagicons.com/FLAT/64/EG.png")
     var painterFirstTarget: String = _painterFirstTarget.value
-    private val _painterSecondTarget = mutableStateOf("")
+    private val _painterSecondTarget = mutableStateOf("https://www.countryflagicons.com/FLAT/64/SA.png")
     var painterSecondTarget: String = _painterSecondTarget.value
 
     var enteringAmount = mutableStateOf("")
