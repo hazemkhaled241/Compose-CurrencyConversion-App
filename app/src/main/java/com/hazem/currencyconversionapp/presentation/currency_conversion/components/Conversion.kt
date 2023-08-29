@@ -30,16 +30,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyConversionViewModel
+import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyEvents
 import com.hazem.currencyconversionapp.presentation.main_component.Currencies
 import com.hazem.currencyconversionapp.presentation.main_component.CurrencyMenu
 import com.hazem.currencyconversionapp.presentation.ui.theme.DarkWhite
+import java.text.DecimalFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltViewModel()) {
 
-    Column(
+    val dec = DecimalFormat("#,###.###")
 
+    currencyConversionViewModel.onEvent(CurrencyEvents.GetAllFavoriteCurrencies)
+    val favList = currencyConversionViewModel.getAllFavoriteCurrencyState.value.allCurrency
+    val favoriteList = favList.map { it.currency }
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 30.dp, end = 30.dp, top = 50.dp)
@@ -73,20 +79,20 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
         Row(horizontalArrangement = Arrangement.Start) {
             OutlinedTextField(
                 value = currencyConversionViewModel.enteringAmount.value, onValueChange = {
-                  currencyConversionViewModel.setAmountState(it)
+                    currencyConversionViewModel.setAmountState(it)
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                shape = RoundedCornerShape(size = 20.dp),
+                shape = RoundedCornerShape(size = 25.dp),
                 modifier = Modifier
                     .padding(end = 15.dp)
                     .border(
-                        width = 0.5.dp, color = Color(0xFFC5C5C5),
-                        shape = RoundedCornerShape(size = 20.dp)
+                        width = 0.5.dp, color = DarkWhite,
+                        shape = RoundedCornerShape(size = 25.dp)
                     )
                     .weight(1f)
                     .background(
                         color = Color.White,
-                        shape = RoundedCornerShape(size = 20.dp)
+                        shape = RoundedCornerShape(size = 25.dp)
                     )
             )
             CurrencyMenu(
@@ -97,6 +103,15 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
                 onItemClicked = { base, painter ->
                     currencyConversionViewModel.currencyBase = base
                     currencyConversionViewModel.painterBase = painter
+
+                    if (!currencyConversionViewModel.getAllFavoriteCurrencyState.value.isLoading) {
+                        currencyConversionViewModel.onEvent(
+                            CurrencyEvents.GetFavoritesDetails(
+                                base = base,
+                                currencies = favoriteList
+                            )
+                        )
+                    }
                 }, modifier = Modifier
                     .weight(2f)
                     .height(50.dp)
@@ -105,7 +120,6 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
                         shape = RoundedCornerShape(20.dp),
                         color = DarkWhite
                     )
-
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
@@ -139,9 +153,9 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
                     currencyConversionViewModel.currencyTarget,
                     currencyConversionViewModel.painterTarget
                 ),
-                onItemClicked = { target, pianter ->
+                onItemClicked = { target, painter ->
                     currencyConversionViewModel.currencyTarget = target
-                    currencyConversionViewModel.painterTarget = pianter
+                    currencyConversionViewModel.painterTarget = painter
 
                 },
                 modifier = Modifier
@@ -154,22 +168,22 @@ fun Conversion(currencyConversionViewModel: CurrencyConversionViewModel = hiltVi
                     )
             )
             OutlinedTextField(
-                value = currencyConversionViewModel.state.value.value.toString(),
+                value = dec.format(currencyConversionViewModel.state.value.value).toString(),
                 onValueChange = {},
                 readOnly = true,
 
                 modifier = Modifier
                     .padding(start = 10.dp)
                     .border(
-                        width = 0.5.dp, color = Color(0xFFC5C5C5),
-                        shape = RoundedCornerShape(size = 20.dp)
+                        width = 0.5.dp, color = DarkWhite,
+                        shape = RoundedCornerShape(size = 25.dp)
                     )
                     .weight(1f)
                     .background(
                         color = Color.White,
-                        shape = RoundedCornerShape(size = 20.dp)
+                        shape = RoundedCornerShape(size = 25.dp)
                     ),
-                shape = RoundedCornerShape(size = 20.dp)
+                shape = RoundedCornerShape(size = 25.dp)
             )
         }
         Spacer(modifier = Modifier.height(15.dp))
