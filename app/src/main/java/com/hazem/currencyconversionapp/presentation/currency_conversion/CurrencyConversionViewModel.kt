@@ -42,16 +42,16 @@ class CurrencyConversionViewModel @Inject constructor(
     private val _deleteCurrencyState = mutableStateOf(DeleteCurrencyState())
     val deleteCurrencyState: State<DeleteCurrencyState> = _deleteCurrencyState
 
-    private val _currencyBase = mutableStateOf("")
+    private val _currencyBase = mutableStateOf("USD")
     var currencyBase: String = _currencyBase.value
 
-    private val _currencyTarget = mutableStateOf("")
+    private val _currencyTarget = mutableStateOf("EGP")
     var currencyTarget: String = _currencyTarget.value
 
-    private val _painterBase = mutableStateOf("")
+    private val _painterBase = mutableStateOf("https://www.countryflagicons.com/FLAT/64/US.png")
     var painterBase: String= _painterBase.value
 
-    private val _painterTarget = mutableStateOf("")
+    private val _painterTarget = mutableStateOf("https://www.countryflagicons.com/FLAT/64/EG.png")
     var painterTarget: String = _painterTarget.value
 
     var enteringAmount = mutableStateOf("")
