@@ -1,6 +1,5 @@
 package com.hazem.currencyconversionapp.presentation.main_component
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,85 +23,84 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.hazem.currencyconversionapp.domain.model.remote.CurrencyDetails
+import java.text.DecimalFormat
 
 
 @Composable
 fun Portfolio(
-    list:List<CurrencyDetails>,
+    list: List<CurrencyDetails>,
     navController: NavController
 ) {
-
-
-
-        Log.d("eee", "entered")
-        Column(
+    val dec = DecimalFormat("#,###.###")
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Row(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .padding(24.dp)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp)
-            ) {
-                Text(
-                    text = "live exchange rates",
-                    style = TextStyle(
-                        fontSize = 17.sp,
-                        // fontFamily = FontFamily(Font(R.font.poppins)),
-                        fontWeight = FontWeight(600),
-                        color = Color.Black,
-                    ), modifier = Modifier.weight(3f)
-                )
-
-                Box(
-                    modifier = Modifier
-                        .border(
-                            width = 1.dp,
-                            shape = RoundedCornerShape(20.dp),
-                            color = Color.Black
-                        )
-                        .weight(2f)
-                        .clickable { navController.navigate("favorite") }
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Filled.AddCircleOutline,
-                            contentDescription = "add Favorite",
-                            modifier = Modifier.padding(5.dp)
-                        )
-                        Text(
-                            text = "Add to Favorites",
-                            style = TextStyle(
-                                fontSize = 10.87.sp,
-                                //fontFamily = FontFamily(Font(R.font.poppins)),
-                                fontWeight = FontWeight(500),
-                                color = Color.Black,
-                            )
-                        )
-                    }
-                }
-            }
-
             Text(
-                text = "My Portfolio",
+                text = "live exchange rates",
                 style = TextStyle(
-                    fontSize = 18.sp,
-                    lineHeight = 24.sp,
+                    fontSize = 17.sp,
                     // fontFamily = FontFamily(Font(R.font.poppins)),
-                    fontWeight = FontWeight(400),
+                    fontWeight = FontWeight(600),
                     color = Color.Black,
-                ), modifier = Modifier.padding(10.dp)
+                ), modifier = Modifier.weight(3f)
             )
-            Column {
-                repeat(list.size) { i ->
-                    PortfolioItem(
-                        imageUrl = list[i].flag,
-                        currency = list[i].currency,
-                        exchangeRate = list[i].exchangeRate
+
+            Box(
+                modifier = Modifier
+                    .border(
+                        width = 1.dp,
+                        shape = RoundedCornerShape(20.dp),
+                        color = Color.Black
+                    )
+                    .weight(2f)
+                    .clickable { navController.popBackStack()
+                        navController.navigate("favorite") }
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Filled.AddCircleOutline,
+                        contentDescription = "add Favorite",
+                        modifier = Modifier.padding(5.dp)
+                    )
+                    Text(
+                        text = "Add to Favorites",
+                        style = TextStyle(
+                            fontSize = 10.87.sp,
+                            //fontFamily = FontFamily(Font(R.font.poppins)),
+                            fontWeight = FontWeight(500),
+                            color = Color.Black,
+                        )
                     )
                 }
             }
         }
+
+        Text(
+            text = "My Portfolio",
+            style = TextStyle(
+                fontSize = 18.sp,
+                lineHeight = 24.sp,
+                // fontFamily = FontFamily(Font(R.font.poppins)),
+                fontWeight = FontWeight(400),
+                color = Color.Black,
+            ), modifier = Modifier.padding(10.dp)
+        )
+        Column {
+            repeat(list.size) { i ->
+                PortfolioItem(
+                    imageUrl = list[i].flag,
+                    currency = list[i].currency,
+                    exchangeRate = dec.format(list[i].exchangeRate.toDouble()).toString()
+                )
+            }
+        }
     }
+}
 
 
