@@ -12,6 +12,10 @@ class ConvertCurrencyUseCase @Inject constructor(
         target: String,
         amount: String
     ): Resource<Double, String> {
-        return currencyRepository.convertCurrency(base = base, target = target, amount = amount)
+        return   if(amount.isNotEmpty()){
+         currencyRepository.convertCurrency(base = base, target = target, amount = amount)
+    } else {
+            Resource.Error("Amount can not be empty")
+        }
     }
 }

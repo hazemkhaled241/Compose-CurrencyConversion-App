@@ -24,6 +24,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hazem.currencyconversionapp.presentation.currency_comparison.Comparison
+import com.hazem.currencyconversionapp.presentation.currency_comparison.CurrencyComparisonViewModel
 import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyConversionViewModel
 import com.hazem.currencyconversionapp.presentation.currency_conversion.CurrencyEvents
 import com.hazem.currencyconversionapp.presentation.currency_conversion.components.Conversion
@@ -36,6 +37,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(
     currencyConversionViewModel: CurrencyConversionViewModel = hiltViewModel(),
+    currencyComparisonViewModel: CurrencyComparisonViewModel = hiltViewModel(),
     mainViewModel: MainViewModel = hiltViewModel(),
     navController: NavController
 ) {
@@ -47,14 +49,16 @@ fun MainScreen(
     val favoriteList = favList.map { it.currency }
     if (!currencyConversionViewModel.getAllFavoriteCurrencyState.value.isLoading) {
         LaunchedEffect(key1 = currencyConversionViewModel.currencyBase) {
-            Log.d("kkk", favoriteList.toString())
 
-            currencyConversionViewModel.onEvent(
-                CurrencyEvents.GetFavoritesDetails(
-                    base = currencyConversionViewModel.currencyBase,
-                    currencies = favoriteList
+            if (favoriteList.isNotEmpty()) {
+                Log.d("kkk", favoriteList.toString())
+                currencyConversionViewModel.onEvent(
+                    CurrencyEvents.GetFavoritesDetails(
+                        base = currencyConversionViewModel.currencyBase,
+                        currencies = favoriteList
+                    )
                 )
-            )
+            }
         }
     }
 
@@ -153,6 +157,15 @@ fun MainScreen(
                 scope.launch {
                     snackBarHostState.showSnackbar(
                         currencyConversionViewModel.state.value.error
+                    )
+                }
+            }
+        }
+        LaunchedEffect(key1 = currencyComparisonViewModel.state.value.error) {
+            if (currencyComparisonViewModel.state.value.error.isNotEmpty()) {
+                scope.launch {
+                    snackBarHostState.showSnackbar(
+                        currencyComparisonViewModel.state.value.error
                     )
                 }
             }
