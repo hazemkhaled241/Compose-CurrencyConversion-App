@@ -7,7 +7,7 @@
 [![GPLv3 License](https://img.shields.io/badge/targetSdk-34-yellow.svg)](https://opensource.org/licenses/)
 
 # Description
-Simple Currency Conversion that allows user to know the value of changing of specific currency to another and add any currency to favorites to follow changes in its price relative to a particular currency.
+Simple Currency Conversion that allows user to know the value of changing of specific currency to another and add any currency to favorites to follow changes in its price relative to a particular currency
 
 # Features:
 1- Show all currencies.<br />
